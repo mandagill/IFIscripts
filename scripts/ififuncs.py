@@ -1098,9 +1098,11 @@ def manifest_replace(manifest, to_be_replaced, replaced_with):
     Ideally, this should never replace the checksum, just a path alteration.
     Although this could be useful for changing the logs checksum value.
     '''
-    with open(manifest, 'r') as fo:
+
+    # TODO wrap this in a try/catch that 1. detects the most recently created logfile and 2. writes the stacktrace to the logfile
+    with open(manifest, encoding='utf-8', 'r') as fo:
         original_lines = fo.readlines()
-    with open(manifest, 'w') as ba:
+    with open(manifest, encoding='utf-8', 'w') as ba:
         for lines in original_lines:
             new_lines = lines.replace(to_be_replaced, replaced_with)
             ba.write(new_lines)
